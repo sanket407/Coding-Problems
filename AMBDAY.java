@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
- 
+ $
 public class AMBDAY{
     
   public static int n,c_n[],c_i[][],c_a[][];     public static double p[],a[], res=2000000,dp[];
