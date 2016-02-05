@@ -12,8 +12,8 @@
 //Consider cats and mice as a bipartite graph with 2 sets
 //We draw an edge between a cat and mouse only if dist. betwn them is GREATER than limit
 //Since  the animals at edge end pts  dont satisfy limit we remove any one of them
-//Thus after creating the graph with edges , the max no of animals which can be removed = Max Independent Set of the graph/
-//MID= no of vertices - Min Vertex Cover =2*n -Min Vertex Cover
+//Thus after creating the graph with edges , the max no of animals which can be removed = Max Independent Set of the graph
+//MIS= no of vertices - Min Vertex Cover =2*n -Min Vertex Cover
 //But in bipartite graph min vertex cover == Maximum bipartite matching (by konigs theorem)
 //Find max bipartite matching using augmented path algo ref: http://www.slideshare.net/KuoE0/acmicpc-bipartite-matching
 
