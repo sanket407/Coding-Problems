@@ -1,6 +1,6 @@
 // PARTIAL SUM TO EXECUTE QUERIES
 // SINCE SUBTRACTIONS AND MODULUS IS USED IN SAME OPERATION 
-//WE long(1) to maintain corectness of subtractions
+//WE use long(1) to maintain corectness of subtractions
 // http://codeforces.com/gym/100571/problem/B
 
 import java.io.*; 
