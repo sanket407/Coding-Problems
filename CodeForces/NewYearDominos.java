@@ -7,7 +7,7 @@
  //  also if a query has left dynamo at i then we process that query
  
  // Note that we have made seg tree ranges in diff manner/
- //  child or l-r will be l-mid and mid-r instead of l-mid and mid+1-r-l since we need each subdist 
+ //  child of l->r will be l->mid and mid->r instead of l->mid and mid+1->rsince we need each subdist 
  //betwn two dominos
  // also base case is when we have two dominos and end of range in between them
  
