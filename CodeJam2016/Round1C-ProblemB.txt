@@ -1,0 +1,166 @@
+import java.io.*;
+ 
+import java.util.*;
+ 
+// dfs+ backtrack to generate all possible paths 
+//add edges while doing dfs
+//remove edge if aafter adding it count > M
+//also keep count of paths starting at a building and ending at building B
+//in below code mat = the adj matrix and cc[i] = count of paths starting at building[i]
+
+public class Main {
+	
+	public static int b,visited[],mat[][],flag;public static long count,m,cc[];
+	public static int mod = 1000000007;
+	
+	public static void main(String[] args)throws IOException {
+		
+OutputWriter out=new OutputWriter(System.out);
+  Reader r=new Reader();
+ BufferedReader br =new BufferedReader(new InputStreamReader(System.in));
+  
+// int t=Integer.parseInt(br.readLine());
+ int t=r.nextInt();
+ 
+ for(int o=1;o<=t;o++)
+ {
+	 
+ 
+//StringTokenizer st =new StringTokenizer(br.readLine());
+	//	int n =Integer.parseInt(st.nextToken());
+	
+	 b=r.nextInt();
+	 m=r.nextLong();
+	visited = new int[b];
+	count=0;
+	
+    mat=new int[b][b];
+    flag=0;
+    cc=new long[b];
+	
+ 
+		 
+		 
+	
+	 
+	 visited[0]=1;
+	 start(0);
+	
+	StringBuilder sb = new StringBuilder("");
+	if(flag==0)
+		System.out.println("Case #"+o+": IMPOSSIBLE");
+	else
+	{
+		System.out.println("Case #"+o+": POSSIBLE");
+		for(int i=0;i<b;i++)
+		{	sb = new StringBuilder("");
+			for(int j=0;j<b;j++)
+				sb.append(mat[i][j]);
+		System.out.println(sb.toString());
+		
+	}
+	}
+
+}}
+	
+public static long start(int curr)  
+/*start returns the no. of paths starting at curr
+  and ending at building B considering curr state of adj matrix*/
+{
+	if(curr==b-1)    //if building B is reached
+	{
+		count++;
+		return 1;
+		
+		
+	}
+	visited[curr]=1;  //mark curr as visited for dfs
+	
+	
+			count+=cc[curr];   //add count of paths prev computed from curr since now we come at curr through some other path
+			
+			
+			if(count==m)
+				{flag=1;return cc[curr];}  //flag==1 if curr start of adj matrix leaves us with m paths
+		
+		
+		if(count>m)
+			return cc[curr];       //exceed m so backtraack
+	
+	
+	
+	
+	for(int i=1;i<b;i++)      //continue dfs from  curr to unvisited nodes
+	{
+		if(visited[i]!=1)
+		{
+			if( mat[curr][i]!=1 && mat[i][curr]!=1)  //if this edge was not prev added in some dfs
+			{
+			
+			mat[curr][i]=1;
+			cc[curr]+=start(i);
+		
+			
+			visited[i]=0;
+			if(count>m)     //adding this edge led count to exceed m
+			{
+				
+				mat[curr][i]=0;
+				count-=cc[i];
+			}
+			if(count==m)
+			{	flag=1;break;}
+		}
+		
+		}
+	}
+	return cc[curr];
+
+	
+}
+	
+}
+
+
+ 
+class Reader {
+    final private int BUFFER_SIZE = 1 << 16;private DataInputStream din;private byte[] buffer;private int bufferPointer, bytesRead;
+    public Reader(){din=new DataInputStream(System.in);buffer=new byte[BUFFER_SIZE];bufferPointer=bytesRead=0;
+    }public Reader(String file_name) throws IOException{din=new DataInputStream(new FileInputStream(file_name));buffer=new byte[BUFFER_SIZE];bufferPointer=bytesRead=0;
+    }public String readLine() throws IOException{byte[] buf=new byte[64];int cnt=0,c;while((c=read())!=-1){if(c=='\n')break;buf[cnt++]=(byte)c;}return new String(buf,0,cnt);
+    }public int nextInt() throws IOException{int ret=0;byte c=read();while(c<=' ')c=read();boolean neg=(c=='-');if(neg)c=read();do{ret=ret*10+c-'0';}while((c=read())>='0'&&c<='9');if(neg)return -ret;return ret;
+    }public long nextLong() throws IOException{long ret=0;byte c=read();while(c<=' ')c=read();boolean neg=(c=='-');if(neg)c=read();do{ret=ret*10+c-'0';}while((c=read())>='0'&&c<='9');if(neg)return -ret;return ret;
+    }public double nextDouble() throws IOException{double ret=0,div=1;byte c=read();while(c<=' ')c=read();boolean neg=(c=='-');if(neg)c = read();do {ret=ret*10+c-'0';}while((c=read())>='0'&&c<='9');if(c=='.')while((c=read())>='0'&&c<='9')ret+=(c-'0')/(div*=10);if(neg)return -ret;return ret;
+    }private void fillBuffer() throws IOException{bytesRead=din.read(buffer,bufferPointer=0,BUFFER_SIZE);if(bytesRead==-1)buffer[0]=-1;
+    }private byte read() throws IOException{if(bufferPointer==bytesRead)fillBuffer();return buffer[bufferPointer++];
+    }public void close() throws IOException{if(din==null) return;din.close();}
+}
+ 
+class OutputWriter {
+	private final PrintWriter writer;
+ 
+	public OutputWriter(OutputStream outputStream) {
+		writer = new PrintWriter(outputStream);
+	}
+ 
+	public OutputWriter(Writer writer) {
+		this.writer = new PrintWriter(writer);
+	}
+ 
+	public void print(Object... objects) {
+		for (int i = 0; i < objects.length; i++) {
+			if (i != 0)
+				writer.print(' ');
+			writer.print(objects[i]);
+		}
+	}
+ 
+	public void printLine(Object... objects) {
+		print(objects);
+		writer.println();
+	}
+ 
+	public void close() {
+		writer.close();
+	}
+}    
